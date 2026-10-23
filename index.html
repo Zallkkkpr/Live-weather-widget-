@@ -1,22 +1,20 @@
-<!-- WEATHER API WIDGET - Zalak ke liye -->
-<div id="weather-widget" style="background: #f0f4ff; padding: 15px; border-radius: 12px; text-align: center; margin: 20px 0; font-family: sans-serif;">
-  <h3 style="margin:0;">🌤️ Vadgam ka Weather</h3>
-  <p id="weather-temp" style="font-size: 22px; font-weight: bold;">Loading...</p>
-  <p id="weather-desc" style="margin:0; color: #555;"></p>
+<!-- BLUE THEME WEATHER WIDGET - Zalak Portfolio ke liye -->
+<div id="weather-widget" style="background: linear-gradient(135deg, #1e88e5, #0d47a1); color: white; padding: 18px; border-radius: 16px; text-align: center; margin: 25px 0; font-family: 'Poppins', sans-serif; box-shadow: 0 4px 15px rgba(0,0,0,0.2);">
+  <h3 style="margin:0 0 8px 0; font-size: 16px; letter-spacing: 1px;">🌤️ VADGAM - LIVE WEATHER</h3>
+  <p id="weather-temp" style="font-size: 32px; font-weight: bold; margin: 5px 0;">--°C</p>
+  <p id="weather-desc" style="margin:0; font-size: 13px; opacity: 0.9;">Fetching live data via API...</p>
+  <span style="font-size: 10px; margin-top: 8px; display: block; opacity: 0.7;">Powered by Open-Meteo API</span>
 </div>
 
 <script>
-// Simple Weather API - Free wala, key ki zarurat nahi
 async function getWeather() {
   try {
-    // Vadgam ke coordinates use kar rahe hai
-    const response = await fetch('https://api.open-meteo.com/v1/forecast?latitude=24.05&longitude=72.48&current_weather=true');
-    const data = await response.json();
-    
+    const res = await fetch('https://api.open-meteo.com/v1/forecast?latitude=24.05&longitude=72.48&current_weather=true');
+    const data = await res.json();
     document.getElementById('weather-temp').innerText = data.current_weather.temperature + '°C';
-    document.getElementById('weather-desc').innerText = 'Wind: ' + data.current_weather.windspeed + ' km/h - Live API se';
-  } catch (error) {
-    document.getElementById('weather-temp').innerText = 'API Error';
+    document.getElementById('weather-desc').innerText = `Wind: ${data.current_weather.windspeed} km/h | Live API Integration`;
+  } catch (e) {
+    document.getElementById('weather-desc').innerText = 'API connection failed';
   }
 }
 getWeather();
